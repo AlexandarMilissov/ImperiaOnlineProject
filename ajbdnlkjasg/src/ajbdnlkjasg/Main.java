@@ -86,6 +86,20 @@ public class Main {
 		gbc_Minesweeper.gridy = 1;
 		frame.getContentPane().add(Minesweeper, gbc_Minesweeper);
 		
+		JButton Warfare = new JButton("Warfare");
+		Warfare.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Warfare warfare = new Warfare();
+				frame.dispose();
+			}
+		});
+		GridBagConstraints gbc_Warfare = new GridBagConstraints();
+		gbc_Warfare.anchor = GridBagConstraints.NORTH;
+		gbc_Warfare.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Warfare.gridx = 0;
+		gbc_Warfare.gridy = 2;
+		frame.getContentPane().add(Warfare, gbc_Warfare);
+		
 		
 		
 		
