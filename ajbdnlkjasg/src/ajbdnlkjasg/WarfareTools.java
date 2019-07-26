@@ -17,11 +17,12 @@ import java.awt.event.ActionEvent;
 public class WarfareTools {
 
 	public WarfareSide thisSide; 
-	private JFrame frame;
+	JFrame frame;
 	public JLabel Name;
 	private JLabel Actions;
 	private JButton End;
 	private JLabel TurnCounter;
+	private JLabel Money;
 	WarfareUnit unit = null;
 	/**
 	 * Launch the application.
@@ -52,7 +53,7 @@ public class WarfareTools {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 285, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setVisible(true);
 		frame.getContentPane().setLayout(null);
 		
@@ -60,7 +61,7 @@ public class WarfareTools {
 		Name.setBounds(99, 0, 194, 31);
 		frame.getContentPane().add(Name);
 		
-		JLabel Money = new JLabel("Money: ");
+		Money = new JLabel("Money: ");
 		Money.setBounds(35, 73, 48, 14);
 		frame.getContentPane().add(Money);
 		
@@ -134,7 +135,7 @@ public class WarfareTools {
 		frame.getContentPane().add(btnBowman);
 	}
 	public void UpdateMoneyCounter(int number) {
-		this.TurnCounter.setText(Integer.toString(number));
+		this.Money.setText(Integer.toString(number));
 	}
 	public void UpdateTurnCounter(int number) {
 		this.TurnCounter.setText(Integer.toString(number));

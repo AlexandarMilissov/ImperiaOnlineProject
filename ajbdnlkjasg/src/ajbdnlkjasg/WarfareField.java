@@ -48,6 +48,7 @@ public class WarfareField {
 	List<WarfareTile> CheckedTiles;
 	public boolean isTileInRange(WarfareUnit Unit, WarfareTile EndTile, int distance, boolean IgnoreObsticles)
 	{
+		int totalCost = 0;
 		int speed = distance;
 		availableTiles = new ArrayList<WarfareTile>();
 		CheckedTiles = new ArrayList<WarfareTile>();
@@ -143,12 +144,12 @@ public class WarfareField {
 				{
 					if(field[y-1][x+1].unit == null)
 					{
-						surroundingTiles.add(field[y][x+1]);
+						surroundingTiles.add(field[y-1][x+1]);
 					}
 				}
 				else
 				{
-					surroundingTiles.add(field[y][x+1]);
+					surroundingTiles.add(field[y-1][x+1]);
 				}
 			}
 		}

@@ -16,6 +16,9 @@ public class WarfareTile {
 	public WarfareUnit unit;
 	Warfare game;
 	WarfareTile This = this;
+	public int cost = 1;
+	public int costToThis = 0;
+	public WarfareTile pathParent = null;
 	
 	public WarfareTile(int X, int Y, JPanel Frame, Warfare Game)
 	{

@@ -21,7 +21,7 @@ public class WarfareSide {
 	{
 
 		name = Name;
-		tools = new WarfareTools(); 
+		tools = new WarfareTools();
 		tools.thisSide = this;
 		tools.Name.setText(Name);
 		units = Units;
@@ -59,6 +59,10 @@ public class WarfareSide {
 			this.parent.UpdateTurnCounters();
 			tools.UpdateActionsCounter(actionsRemaining);
 			actionsRemaining = maxActions;
+			for(var u : units)
+			{
+				u.ResetActions();
+			}
 		}
 	}
 	public void DoAction()

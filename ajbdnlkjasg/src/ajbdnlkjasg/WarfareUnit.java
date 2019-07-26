@@ -11,6 +11,8 @@ public abstract class WarfareUnit {
 	int speed;
 	WarfareSide side;
 	int cost;
+	int usesPerTern = 2;
+	int timesLeft = usesPerTern;
 	
 	public WarfareUnit() {}
 	
@@ -47,5 +49,13 @@ public abstract class WarfareUnit {
 				Target.Die();
 			}
 		}
+	}
+	public void DoAction()
+	{
+		timesLeft--; 
+	}
+	public void ResetActions()
+	{
+		timesLeft = usesPerTern;
 	}
 }

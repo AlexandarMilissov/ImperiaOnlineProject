@@ -14,11 +14,12 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JButton;
 
 
 public class Warfare {
 
-	private JFrame frame;
+	JFrame frame;
 	private int height = 10;
 	private int width = 10;
 	private int size = 45;
@@ -66,7 +67,23 @@ public class Warfare {
 		Field.setLayout(null);
 		field = new WarfareField(height, width, (int)(size * 0.9), Field, this);
 		
-		frame.setSize(Field.getSize().width,(int) (screenHeight*(0.93)));
+		JPanel Left = new JPanel();
+		frame.getContentPane().add(Left, BorderLayout.WEST);
+		Left.setLayout(null);
+		
+		JPanel Right = new JPanel();
+		frame.getContentPane().add(Right, BorderLayout.EAST);
+		Right.setLayout(null);
+
+		Left.setBounds(0, 0, Left.getSize().width, Field.getSize().height);
+		Field.setBounds(Left.getSize().width, 0, Field.getSize().width, Field.getSize().height);
+		Right.setBounds(Left.getSize().width + Field.getSize().width, 0, Right.getSize().width, Left.getSize().height);
+		
+		
+		
+		
+		
+		frame.setSize(Field.getSize().width + Left.getSize().width + Right.getSize().width,(int) (screenHeight*(0.93)));
 		
 		left = new WarfareSide(new ArrayList<WarfareUnit>(),Color.GREEN,field,leftTurnAllow,"left",this);
 		right = new WarfareSide(new ArrayList<WarfareUnit>(),Color.RED,field,rightTurnAllow,"right",this);
@@ -79,7 +96,10 @@ public class Warfare {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(0, 0, 304, 217);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		WarfareWindowListener windowListener = new WarfareWindowListener();
+		windowListener.game = this;
+		frame.addWindowListener(windowListener);
 		frame.setVisible(true);
 	}
 	
@@ -123,11 +143,12 @@ public class Warfare {
 				return;
 			}
 			
+			side.selectedNewUnit.DoAction();
 			side.money -= side.selectedNewUnit.cost;
 			System.out.println("New Army, Money Left: " + side.money);
 			Tile.AddUnit(side.selectedNewUnit);
 			side.AddtheNewUnit(Tile);
-
+			
 			side.DoAction();
 			return;
 		}
@@ -152,9 +173,19 @@ public class Warfare {
 				//check if tile is in range 
 				if(field.isTileInRange(selectedUnit, Tile, selectedUnit.speed, false))
 				{
-					//TODO
+					//check if unit has enough action points
+					if(selectedUnit.timesLeft > 0)
+					{
+						//if it has enough reduce them
+						selectedUnit.timesLeft--;
+					}
+					//if it doesn't it can't move
+					else
+					{
+						return;
+					}
+					
 					//move Unit
-					//move();
 					selectedUnit.tile.RemoveUnit();
 					Tile.AddUnit(selectedUnit);
 					
@@ -189,6 +220,19 @@ public class Warfare {
 					//attack them
 					else
 					{
+						//check if unit has enough action points
+						if(selectedUnit.timesLeft > 0)
+						{
+							//if it has enough reduce them
+							selectedUnit.timesLeft--;
+						}
+						//if it doesn't it can't attack
+						else
+						{
+							return;
+						}
+						
+						
 						//attack
 						selectedUnit.Attack(Tile.unit);
 						
