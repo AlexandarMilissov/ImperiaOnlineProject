@@ -50,9 +50,9 @@ public class Main {
 		frame.setVisible(true);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{434, 0};
-		gridBagLayout.rowHeights = new int[]{23, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{23, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
 		JButton Snake = new JButton("Snake");
@@ -94,11 +94,25 @@ public class Main {
 			}
 		});
 		GridBagConstraints gbc_Warfare = new GridBagConstraints();
+		gbc_Warfare.insets = new Insets(0, 0, 5, 0);
 		gbc_Warfare.anchor = GridBagConstraints.NORTH;
 		gbc_Warfare.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Warfare.gridx = 0;
 		gbc_Warfare.gridy = 2;
 		frame.getContentPane().add(Warfare, gbc_Warfare);
+		
+		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		GridBagConstraints gbc_btnExit = new GridBagConstraints();
+		gbc_btnExit.anchor = GridBagConstraints.NORTH;
+		gbc_btnExit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnExit.gridx = 0;
+		gbc_btnExit.gridy = 8;
+		frame.getContentPane().add(btnExit, gbc_btnExit);
 		
 		
 		

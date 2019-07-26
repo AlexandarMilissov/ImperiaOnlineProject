@@ -171,7 +171,7 @@ public class Warfare {
 			if(Tile.unit == null)
 			{
 				//check if tile is in range 
-				if(field.isTileInRange(selectedUnit, Tile, selectedUnit.speed, false))
+				if(field.isTileInRange(selectedUnit, Tile, selectedUnit.speed, false) != null)
 				{
 					//check if unit has enough action points
 					if(selectedUnit.timesLeft > 0)
@@ -206,7 +206,7 @@ public class Warfare {
 			else
 			{
 				//check it target is in range
-				if(field.isTileInRange(selectedUnit, Tile, selectedUnit.range, true))
+				if(field.isTileInRange(selectedUnit, Tile, selectedUnit.range, true) != null)
 				{
 					//check if unit is an ally
 					if(Tile.unit.side == side)

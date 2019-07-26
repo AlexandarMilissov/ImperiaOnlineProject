@@ -21,7 +21,7 @@ public class Snake {
 	long delay = 500;
 	Timer timer = new Timer(true);
 	
-	private JFrame frame;
+	public JFrame frame;
 	private int height = 10;
 	private int width = 10;
 	private int size = 50;
@@ -79,7 +79,10 @@ public class Snake {
 	
 	private void initialize() {
 		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		MyWindowListener windowListener = new MyWindowListener();
+		windowListener.sGame = this;
+		frame.addWindowListener(windowListener);
 		frame.setVisible(true);
 		frame.getContentPane().setLayout(null);
 	}

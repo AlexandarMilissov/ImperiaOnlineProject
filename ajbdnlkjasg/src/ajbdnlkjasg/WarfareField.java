@@ -46,12 +46,24 @@ public class WarfareField {
 	}
 	List<WarfareTile> availableTiles;
 	List<WarfareTile> CheckedTiles;
-	public boolean isTileInRange(WarfareUnit Unit, WarfareTile EndTile, int distance, boolean IgnoreObsticles)
+	public List<WarfareTile> isTileInRange(WarfareUnit Unit, WarfareTile EndTile, int distance, boolean IgnoreObsticles)
 	{
-		int totalCost = 0;
+		for (WarfareTile[] elem: field) 
+		{
+		    for (WarfareTile t: elem) 
+		    {
+		    	t.pathParent = null;
+		    	t.costToThis = 0;
+		    }
+		}
+		
+		
+		
 		int speed = distance;
 		availableTiles = new ArrayList<WarfareTile>();
 		CheckedTiles = new ArrayList<WarfareTile>();
+		List<WarfareTile> Path = new ArrayList<WarfareTile>();
+		
 
 		if(speed > 0)
 		{
@@ -73,7 +85,17 @@ public class WarfareField {
 			{
 				if(t == EndTile)
 				{
-					return true;
+					WarfareTile T = t;
+					do
+					{
+						Path.add(T);
+						if(T.pathParent == null)
+						{
+							break;
+						}
+						T = T.pathParent;
+					}while(true);
+					return Path;
 				}
 				else
 				{
@@ -87,7 +109,7 @@ public class WarfareField {
 		}
 		
 		
-		return false;
+		return null;
 	}
 	
 	private List<WarfareTile> getAllNearbyTiles(WarfareTile Tile, boolean IgnoreObsticles)
@@ -100,152 +122,111 @@ public class WarfareField {
 		if(x > 0
 		&& y > 0)
 		{
-			if(!(availableTiles.contains(field[y-1][x-1])
-				|| CheckedTiles.contains(field[y-1][x-1])))
+			WarfareTile tile = AddTile(y-1,x-1,IgnoreObsticles,Tile);
+			if(tile != null)
 			{
-				if(!IgnoreObsticles)
-				{
-					if(field[y-1][x-1].unit == null)
-					{
-						surroundingTiles.add(field[y-1][x-1]);
-					}
-				}
-				else
-				{
-					surroundingTiles.add(field[y-1][x-1]);
-				}
+				surroundingTiles.add(tile);
 			}
 		}
 		if(y > 0)
 		{
-			if(!(availableTiles.contains(field[y-1][x])
-				|| CheckedTiles.contains(field[y-1][x])))
+			WarfareTile tile = AddTile(y-1,x,IgnoreObsticles,Tile);
+			if(tile != null)
 			{
-				if(!IgnoreObsticles)
-				{
-					if(field[y-1][x].unit == null)
-					{
-						surroundingTiles.add(field[y-1][x]);
-					}
-				}
-				else
-				{
-					surroundingTiles.add(field[y-1][x]);
-				}
+				surroundingTiles.add(tile);
 			}
 		}
 		if(x < field[y].length - 1
 		&& y > 0)
 		{
-			if(!(availableTiles.contains(field[y-1][x+1])
-				|| CheckedTiles.contains(field[y-1][x+1])))
+			WarfareTile tile = AddTile(y-1,x+1,IgnoreObsticles,Tile);
+			if(tile != null)
 			{
-				if(!IgnoreObsticles)
-				{
-					if(field[y-1][x+1].unit == null)
-					{
-						surroundingTiles.add(field[y-1][x+1]);
-					}
-				}
-				else
-				{
-					surroundingTiles.add(field[y-1][x+1]);
-				}
+				surroundingTiles.add(tile);
 			}
 		}
 		if(x < field[y].length - 1)
 		{
-			if(!(availableTiles.contains(field[y][x+1])
-				|| CheckedTiles.contains(field[y][x+1])))
+			WarfareTile tile = AddTile(y,x+1,IgnoreObsticles,Tile);
+			if(tile != null)
 			{
-				if(!IgnoreObsticles)
-				{
-					if(field[y][x+1].unit == null)
-					{
-						surroundingTiles.add(field[y][x+1]);
-					}
-				}
-				else
-				{
-					surroundingTiles.add(field[y][x+1]);
-				}
+				surroundingTiles.add(tile);
 			}
 		}
 		if(x < field[y].length - 1
 		&& y < field.length - 1)
 		{
-			if(!(availableTiles.contains(field[y+1][x+1])
-				|| CheckedTiles.contains(field[y+1][x+1])))
+			WarfareTile tile = AddTile(y+1,x+1,IgnoreObsticles,Tile);
+			if(tile != null)
 			{
-				if(!IgnoreObsticles)
-				{
-					if(field[y+1][x+1].unit == null)
-					{
-						surroundingTiles.add(field[y+1][x+1]);
-					}
-				}
-				else
-				{
-					surroundingTiles.add(field[y+1][x+1]);
-				}
+				surroundingTiles.add(tile);
 			}
 		}
 		if(y < field.length - 1)
 		{
-			if(!(availableTiles.contains(field[y+1][x])
-				|| CheckedTiles.contains(field[y+1][x])))
+			WarfareTile tile = AddTile(y+1,x,IgnoreObsticles,Tile);
+			if(tile != null)
 			{
-				if(!IgnoreObsticles)
-				{
-					if(field[y-1][x].unit == null)
-					{
-						surroundingTiles.add(field[y+1][x]);
-					}
-				}
-				else
-				{
-					surroundingTiles.add(field[y+1][x]);
-				}
+				surroundingTiles.add(tile);
 			}
 		}
 		if(x > 0
 		&& y < field.length - 1)
 		{
-			if(!(availableTiles.contains(field[y+1][x-1])
-				|| CheckedTiles.contains(field[y+1][x-1])))
+			WarfareTile tile = AddTile(y+1,x-1,IgnoreObsticles,Tile);
+			if(tile != null)
 			{
-				if(!IgnoreObsticles)
-				{
-					if(field[y+1][x-1].unit == null)
-					{
-						surroundingTiles.add(field[y+1][x-1]);
-					}
-				}
-				else
-				{
-					surroundingTiles.add(field[y+1][x-1]);
-				}
+				surroundingTiles.add(tile);
 			}
 		}
 		if(x > 0)
 		{
-			if(!(availableTiles.contains(field[y][x-1])
-				|| CheckedTiles.contains(field[y][x-1])))
+			WarfareTile tile = AddTile(y,x-1,IgnoreObsticles,Tile);
+			if(tile != null)
 			{
-				if(!IgnoreObsticles)
-				{
-					if(field[y][x-1].unit == null)
-					{
-						surroundingTiles.add(field[y][x-1]);
-					}
-				}
-				else
-				{
-					surroundingTiles.add(field[y][x-1]);
-				}
+				surroundingTiles.add(tile);
 			}
 		}
 		return surroundingTiles;
 	}	
+	
+	
+	
+	
+	WarfareTile AddTile(int y, int x ,boolean IgnoreObsticles,WarfareTile Parent)
+	{
+		WarfareTile toAdd = null;
+		
+		if(!availableTiles.contains(field[y][x]))
+		{
+			if(!CheckedTiles.contains(field[y][x]))
+			{
+				if(!IgnoreObsticles)
+				{
+					if(field[y][x].unit == null)
+					{
+						toAdd = field[y][x];
+						toAdd.costToThis = Parent.costToThis + toAdd.cost;
+						toAdd.pathParent = Parent;
+					}
+				}
+				else
+				{
+					toAdd = field[y][x];
+					toAdd.costToThis = Parent.costToThis + toAdd.cost;
+					toAdd.pathParent = Parent;
+				}
+			}
+		}
+		else
+		{
+			if(field[y][x].costToThis > Parent.costToThis + field[y][x].cost)
+			{
+				field[y][x].costToThis = Parent.costToThis + field[y][x].cost;
+				field[y][x].pathParent = Parent;
+			}
+		}
+		return toAdd;
+	}
 }
 

@@ -8,7 +8,7 @@ import java.awt.BorderLayout;
 
 public class Minesweeper {
 
-	private JFrame frame;
+	public JFrame frame;
 	private int height = 10;
 	private int width = 10;
 	private int size = 45;
@@ -52,8 +52,12 @@ public class Minesweeper {
 	
 	private void initialize() {
 		frame = new JFrame();
+
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		MyWindowListener windowListener = new MyWindowListener();
+		windowListener.mGame = this;
+		frame.addWindowListener(windowListener);
 		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
 

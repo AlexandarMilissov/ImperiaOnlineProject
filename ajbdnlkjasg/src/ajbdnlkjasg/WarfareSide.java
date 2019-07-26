@@ -57,8 +57,8 @@ public class WarfareSide {
 		if(!(parent.turnCounter%2 == isEven))
 		{
 			this.parent.UpdateTurnCounters();
-			tools.UpdateActionsCounter(actionsRemaining);
 			actionsRemaining = maxActions;
+			tools.UpdateActionsCounter(actionsRemaining);
 			for(var u : units)
 			{
 				u.ResetActions();
